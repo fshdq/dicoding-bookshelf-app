@@ -1,5 +1,5 @@
 {
-  "name": "vanilla-vite-tailwind",
+  "name": "dicoding-bookshelf-app",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",
