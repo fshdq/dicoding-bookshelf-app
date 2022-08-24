@@ -1,5 +1,5 @@
 const READED_BOOKS_ID = "readed-books";
-const UNREADED_LIST_ID = "unreaded-books";
+const UNREADED_BOOK_ID = "unreaded-books";
 const BOOK_ITEMID = "itemID";
 const UNREADED_BOOKS_COUNT_ID = "unreaded-books-count";
 const READED_BOOKS_COUNT_ID = "readed-books-count";
@@ -38,7 +38,7 @@ function addBook() {
     listID = READED_BOOKS_ID;
     READED_COUNT++;
   } else {
-    listID = UNREADED_LIST_ID;
+    listID = UNREADED_BOOK_ID;
     UNREADED_COUNT++;
   }
 
@@ -101,12 +101,6 @@ function makeBook(bookTitle, bookAuthor, bookYear, bookStatus) {
     <p class="text-sm text-gray-500 dark:text-gray-300 truncate book-author">${bookAuthor}</p>
     <p class="text-sm text-gray-500 dark:text-gray-300 truncate book-year">${bookYear}</p>
   `;
-
-  const author = document.createElement("p");
-  author.innerHTML = "Penulis: <span class='penulis'>" + bookAuthor + "</span>";
-
-  const year = document.createElement("p");
-  year.innerHTML = "Tahun: <span class='tahun'>" + bookYear + "</span>";
 
   const button = document.createElement("div");
   button.classList.add("button-wrapper");
@@ -276,7 +270,7 @@ function undoBookFromCompleted(bookItem) {
   book.isCompleted = false;
   newBook[BOOK_ITEMID] = book.id;
 
-  const unReadedBook = document.getElementById(UNREADED_LIST_ID);
+  const unReadedBook = document.getElementById(UNREADED_BOOK_ID);
   unReadedBook.append(newBook);
   bookItem.remove();
   READED_COUNT--;
@@ -292,61 +286,127 @@ function updateCount() {
 }
 
 function emptyState() {
-  const unreadedState = document.querySelector("#unreaded-state");
-  const readedState = document.querySelector("#readed-state");
+  // const unreadedState = document.querySelector(".unreaded-state");
+  // const readedState = document.querySelector(".readed-state");
 
-  const readedEmptyStateElement = document.createElement("div");
-  readedEmptyStateElement.classList.add("list-group-item", "w-full", "mt-4");
-  readedEmptyStateElement.innerHTML = `
-  <div class="space-y-4 flex flex-col items-center">
-  <div class="flex flex-col items-center" id="unread-empty-state">
-      <svg xmlns="http://www.w3.org/2000/svg"
-          class="h-10 w-10 text-gray-300 dark:text-gray-700" viewBox="0 0 20 20"
-          fill="currentColor">
-          <path fill-rule="evenodd"
-              d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-              clip-rule="evenodd" />
-      </svg>
-      <p class="text-sm text-gray-300">Data masih kosong.</p>
-  </div>
-</div>
-  `;
-  const unreadedEmptyStateElement = document.createElement("div");
-  unreadedEmptyStateElement.classList.add("list-group-item", "w-full", "mt-4");
-  unreadedEmptyStateElement.innerHTML = `
-  <div class="space-y-4 flex flex-col items-center">
-  <div class="flex flex-col items-center" id="unread-empty-state">
-      <svg xmlns="http://www.w3.org/2000/svg"
-          class="h-10 w-10 text-gray-300 dark:text-gray-700" viewBox="0 0 20 20"
-          fill="currentColor">
-          <path fill-rule="evenodd"
-              d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
-              clip-rule="evenodd" />
-      </svg>
-      <p class="text-sm text-gray-300">Data masih kosong.</p>
-  </div>
-</div>
-  `;
+  // const readedEmptyStateElement = document.createElement("div");
+  // readedEmptyStateElement.classList.add("readed-state", "w-full", "mt-4");
+  // readedEmptyStateElement.innerHTML = `
+  //   <div class="space-y-4 flex flex-col items-center">
+  //   <div class="flex flex-col items-center">
+  //       <svg xmlns="http://www.w3.org/2000/svg"
+  //           class="h-10 w-10 text-gray-300 dark:text-gray-700" viewBox="0 0 20 20"
+  //           fill="currentColor">
+  //           <path fill-rule="evenodd"
+  //               d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+  //               clip-rule="evenodd" />
+  //       </svg>
+  //       <p class="text-sm text-gray-300">Data masih kosong.</p>
+  //   </div>
+  // </div>
+  //   `;
+  // const unreadedEmptyStateElement = document.createElement("div");
+  // unreadedEmptyStateElement.classList.add("unreaded-state", "w-full", "mt-4");
+  // unreadedEmptyStateElement.innerHTML = `
+  //   <div class="space-y-4 flex flex-col items-center">
+  //   <div class="flex flex-col items-center">
+  //       <svg xmlns="http://www.w3.org/2000/svg"
+  //           class="h-10 w-10 text-gray-300 dark:text-gray-700" viewBox="0 0 20 20"
+  //           fill="currentColor">
+  //           <path fill-rule="evenodd"
+  //               d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+  //               clip-rule="evenodd" />
+  //       </svg>
+  //       <p class="text-sm text-gray-300">Data masih kosong.</p>
+  //   </div>
+  // </div>
+  //   `;
+
+  // if (UNREADED_COUNT == 0 && unreadedState == null) {
+  //   document.getElementById(UNREADED_BOOK_ID).append(readedEmptyStateElement);
+  // }
+
+  // if (UNREADED_COUNT > 0 && unreadedState != null) {
+  //   unreadedState.remove();
+  // }
+
+  // if (READED_COUNT == 0 && readedState == null) {
+  //   document.getElementById(READED_BOOKS_ID).append(unreadedEmptyStateElement);
+  // }
+
+  // if (READED_COUNT > 0 && readedState != null) {
+  //   readedState.remove();
+  // }
+
+  const unreadedState = document.querySelector(".unreaded-state");
+  const readedState = document.querySelector(".readed-state");
+  console.log(readedState);
 
   if (UNREADED_COUNT == 0 && unreadedState == null) {
-    document.getElementById(UNREADED_LIST_ID).append(readedEmptyStateElement);
+    const unreadedElement = document.createElement("div");
+    const icon = document.createElement("span");
+    const text = document.createElement("p");
+
+    unreadedElement.classList.add(
+      "unreaded-state",
+      "flex",
+      "flex-col",
+      "items-center"
+    );
+    icon.classList.add(
+      "mb-2",
+      "fas",
+      "fa-file",
+      "text-gray-500",
+      "dark:text-gray-300"
+    );
+    text.classList.add("text-gray-500", "dark:text-gray-300", "text-sm");
+    text.innerText = "Tidak ada data yang tersedia.";
+
+    unreadedElement.innerHTML = icon.outerHTML + text.outerHTML;
+    document.getElementById(UNREADED_BOOK_ID).append(unreadedElement);
   }
 
   if (UNREADED_COUNT > 0 && unreadedState != null) {
-    readedEmptyStateElement.remove();
+    console.log("seharusnya status belum baca terhapus");
+    unreadedState.remove();
   }
 
   if (READED_COUNT == 0 && readedState == null) {
-    document.getElementById(READED_BOOKS_ID).append(unreadedEmptyStateElement);
+    const readedElement = document.createElement("div");
+    const icon = document.createElement("span");
+    const text = document.createElement("p");
+
+    readedElement.classList.add(
+      "readed-state",
+      "flex",
+      "flex-col",
+      "w-full",
+      "items-center",
+      "justify-around"
+    );
+    icon.classList.add(
+      "mb-2",
+      "fas",
+      "fa-file",
+      "text-gray-500",
+      "dark:text-gray-300"
+    );
+    text.classList.add("text-gray-500", "dark:text-gray-300", "text-sm");
+    text.innerText = "Tidak ada data yang tersedia.";
+
+    readedElement.innerHTML = icon.outerHTML + text.outerHTML;
+    document.getElementById(READED_BOOKS_ID).append(readedElement);
   }
 
   if (READED_COUNT > 0 && readedState != null) {
-    unreadedEmptyStateElement.remove();
+    console.log("seharusnya status baca terhapus");
+    readedState.remove();
   }
 }
 
 function refreshDataFromBooks() {
-  const unreadedBook = document.getElementById(UNREADED_LIST_ID);
+  const unreadedBook = document.getElementById(UNREADED_BOOK_ID);
   const readedBook = document.getElementById(READED_BOOKS_ID);
 
   unreadedBook.innerHTML = "";
@@ -378,7 +438,7 @@ function refreshDataFromBooks() {
 
 function searchBook() {
   const keyword = document.getElementById("input-search").value.toLowerCase();
-  const unReadedBook = document.getElementById(UNREADED_LIST_ID);
+  const unReadedBook = document.getElementById(UNREADED_BOOK_ID);
   let readedBooks = document.getElementById(READED_BOOKS_ID);
 
   unReadedBook.innerHTML = "";
@@ -417,21 +477,21 @@ function searchBook() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const inputBukuForm = document.getElementById("book-form");
-  const searchBukuForm = document.getElementById("search-book");
-  const editBukuForm = document.getElementById("form-edit-buku");
+  const inputBookForm = document.getElementById("book-form");
+  const searchBookForm = document.getElementById("search-book");
+  const editBookForm = document.getElementById("form-edit-buku");
 
-  inputBukuForm.addEventListener("submit", function (event) {
+  inputBookForm.addEventListener("submit", function (event) {
     event.preventDefault();
     addBook();
   });
 
-  searchBukuForm.addEventListener("submit", function (event) {
+  searchBookForm.addEventListener("submit", function (event) {
     event.preventDefault();
     searchBook();
   });
 
-  editBukuForm.addEventListener("submit", function (event) {
+  editBookForm.addEventListener("submit", function (event) {
     event.preventDefault();
     saveEditBook();
   });

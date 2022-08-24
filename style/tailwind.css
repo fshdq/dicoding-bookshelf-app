@@ -23,7 +23,7 @@
 }
 
 .booklist {
-  @apply w-full p-4 my-8 bg-white border border-gray-200 rounded-lg shadow-md lg:p-6 dark:bg-gray-600 dark:border-gray-500 flex flex-col justify-between;
+  @apply w-full p-4 my-4 bg-white border border-gray-200 rounded-lg shadow-md lg:p-6 dark:bg-gray-600 dark:border-gray-500 flex flex-col justify-between;
 }
 
 .text-wrapper{
